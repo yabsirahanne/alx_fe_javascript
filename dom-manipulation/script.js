@@ -165,4 +165,22 @@ function updateStatus(message, isError = false) {
   setTimeout(() => (statusEl.textContent = ""), 5000);
 }
 updateStatus("Quotes synced with server!");
+function showRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  const quoteDisplay = document.getElementById("quoteDisplay");
+
+  quoteDisplay.innerHTML = `<p>"${quote.text}"</p><em>— ${quote.category}</em>`;
+
+  // Save this quote to sessionStorage
+  sessionStorage.setItem("lastViewedQuote", JSON.stringify(quote));
+}
+window.addEventListener("DOMContentLoaded", () => {
+  const stored = sessionStorage.getItem("lastViewedQuote");
+  if (stored) {
+    const quote = JSON.parse(stored);
+    const quoteDisplay = document.getElementById("quoteDisplay");
+    quoteDisplay.innerHTML = `<p>"${quote.text}"</p><em>— ${quote.category}</em>`;
+  }
+});
 }
