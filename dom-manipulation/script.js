@@ -223,4 +223,17 @@ function importQuotes() {
   };
   reader.readAsText(file);
 }
+function populateCategories() {
+  const filter = document.getElementById("categoryFilter");
+  const categories = Array.from(new Set(quotes.map(q => q.category)));
+
+  // Clear existing options (except "All Categories")
+  filter.innerHTML = '<option value="">All Categories</option>';
+  categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    filter.appendChild(option);
+  });
+}
 }
