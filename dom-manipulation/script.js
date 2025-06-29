@@ -152,4 +152,8 @@ async function syncQuotes() {
     console.warn("Server sync skipped:", err.message);
   }
 }
+// Automatically sync new quotes from mock API every 60 seconds (60000 ms)
+setInterval(() => {
+  fetchQuotesFromMockAPI();
+}, 60000);
 }
