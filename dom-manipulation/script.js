@@ -156,4 +156,12 @@ async function syncQuotes() {
 setInterval(() => {
   fetchQuotesFromMockAPI();
 }, 60000);
+function updateStatus(message, isError = false) {
+  const statusEl = document.getElementById("statusMessage");
+  statusEl.textContent = message;
+  statusEl.style.color = isError ? "crimson" : "green";
+
+  // Auto-clear after 5 seconds
+  setTimeout(() => (statusEl.textContent = ""), 5000);
+}
 }
