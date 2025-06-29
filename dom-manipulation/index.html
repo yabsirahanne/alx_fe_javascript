@@ -29,4 +29,11 @@
     console.error("Error posting quote:", error);
     alert("Failed to post quote to server.");
   }
+  if (newText && newCategory) {
+  const newQuote = { text: newText, category: newCategory };
+  quotes.push(newQuote);
+  localStorage.setItem("quotes", JSON.stringify(quotes));
+  postQuoteToMockAPI(newQuote); // Send to server too
+  ...
+}
 }
