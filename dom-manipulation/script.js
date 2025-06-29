@@ -50,4 +50,18 @@ function createAddQuoteForm() {
     </div>
     <div id="quoteDisplay" style="margin-top: 1em;"></div>
   `;
+  async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch("https://example.com/quotes.json"); // Replace with actual API endpoint
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    const data = await response.json();
+    quotes.push(...data);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+    alert("Quotes loaded from server!");
+  } catch (error) {
+    console.error("Error fetching quotes:", error);
+    alert("Failed to load quotes from server.");
+  }
+}
 }
