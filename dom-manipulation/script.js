@@ -126,4 +126,30 @@ async function postQuoteToMockAPI(quote) {
   postQuoteToMockAPI(newQuote); // Send to server too
   ...
 }
+async function syncQuotes() {
+  // 1. Load from localStorage if available
+  const saved = localStorage.getItem("quotes");
+  if (saved) {
+    quotes.length = 0; // Clear existing
+    quotes.push(...JSON.parse(saved));
+  }
+
+  // 2. Optionally fetch from server (if newer versions or backup exists)
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if (!response.ok) throw new Error("Failed to sync from server");
+    
+    const serverData = await response.json();
+    const serverQuotes = serverData.slice(0, 3).map(post => ({
+      text: post.title,
+      category: "Synced from Server"
+    }));
+
+    quotes.push(...serverQuotes);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+    alert("Quotes synchronized from local and server sources.");
+  } catch (err) {
+    console.warn("Server sync skipped:", err.message);
+  }
+}
 }
