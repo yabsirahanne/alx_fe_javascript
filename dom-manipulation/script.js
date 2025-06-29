@@ -18,21 +18,26 @@ function addQuote() {
   const newText = document.getElementById("newQuoteText").value.trim();
   const newCategory = document.getElementById("newQuoteCategory").value.trim();
 
+ function addQuote() {
+  const newText = document.getElementById("newQuoteText").value.trim();
+  const newCategory = document.getElementById("newQuoteCategory").value.trim();
+
   if (newText && newCategory) {
-    // Update array
+    // Add to array
     quotes.push({ text: newText, category: newCategory });
 
-    // Optionally clear inputs
+    // Save to localStorage
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+
+    // Clear fields
     document.getElementById("newQuoteText").value = "";
     document.getElementById("newQuoteCategory").value = "";
 
-    // Show confirmation or refresh quote list
     alert("Quote added!");
   } else {
     alert("Please fill out both fields.");
   }
 }
-
 // Dynamically create form elements and quote display area if needed
 function createAddQuoteForm() {
   const container = document.getElementById("quoteApp");
