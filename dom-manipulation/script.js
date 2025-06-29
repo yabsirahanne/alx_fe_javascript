@@ -251,4 +251,24 @@ function filterQuote(searchTerm) {
     quoteDisplay.innerHTML = `<p>No quotes matched your search.</p>`;
   }
 }
+let selectedCategory = ""; // global state
+
+function filterBySelectedCategory() {
+  selectedCategory = document.getElementById("categoryFilter").value;
+  updateFilteredQuoteDisplay();
+}
+
+function updateFilteredQuoteDisplay() {
+  const quoteDisplay = document.getElementById("quoteDisplay");
+  const filteredQuotes = selectedCategory
+    ? quotes.filter(q => q.category === selectedCategory)
+    : quotes;
+
+  if (filteredQuotes.length > 0) {
+    const randomQuote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
+    quoteDisplay.innerHTML = `<p>"${randomQuote.text}"</p><em>— ${randomQuote.category}</em>`;
+  } else {
+    quoteDisplay.innerHTML = "<p>No quotes found in this category.</p>";
+  }
+}
 }
