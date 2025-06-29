@@ -15,5 +15,8 @@
 <button onclick="importQuotes()">Import Quotes</button>
     <button onclick="fetchQuotesFromMockAPI()">Load from Mock API</button>
     <script src="script.js"></script>
-    </body>
+    <select id="categoryFilter" onchange="filterQuotesByCategory()">
+  <option value="">All Categories</option>
+</select>
+</body>
 </html>
