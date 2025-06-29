@@ -196,4 +196,31 @@ function exportQuotes() {
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
 }
+function importQuotes() {
+  const fileInput = document.getElementById("importQuotesInput");
+  const file = fileInput.files[0];
+
+  if (!file) {
+    alert("Please select a file to import.");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const importedQuotes = JSON.parse(e.target.result);
+      if (Array.isArray(importedQuotes)) {
+        quotes.push(...importedQuotes);
+        localStorage.setItem("quotes", JSON.stringify(quotes));
+        alert("Quotes imported successfully!");
+      } else {
+        alert("Invalid file format. Expected an array of quotes.");
+      }
+    } catch (err) {
+      console.error("Error parsing file:", err);
+      alert("Failed to import quotes.");
+    }
+  };
+  reader.readAsText(file);
+}
 }
