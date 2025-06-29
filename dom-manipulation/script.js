@@ -164,4 +164,5 @@ function updateStatus(message, isError = false) {
   // Auto-clear after 5 seconds
   setTimeout(() => (statusEl.textContent = ""), 5000);
 }
+updateStatus("Quotes synced with server!");
 }
