@@ -84,5 +84,22 @@ async function fetchQuotesFromMockAPI() {
     console.error("Error:", error);
     alert("Unable to load quotes from mock API.");
   }
+function addQuote() {
+  const newText = document.getElementById("newQuoteText").value.trim();
+  const newCategory = document.getElementById("newQuoteCategory").value.trim();
 
+  if (newText && newCategory) {
+    const newQuote = { text: newText, category: newCategory };
+    quotes.push(newQuote);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+    postQuoteToMockAPI(newQuote); // Send to mock API
+
+    // Clear inputs
+    document.getElementById("newQuoteText").value = "";
+    document.getElementById("newQuoteCategory").value = "";
+    alert("Quote added!");
+  } else {
+    alert("Please fill out both fields.");
+  }
+}
 }
