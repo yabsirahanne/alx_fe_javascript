@@ -64,4 +64,25 @@ function createAddQuoteForm() {
     alert("Failed to load quotes from server.");
   }
 }
+async function fetchQuotesFromMockAPI() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if (!response.ok) throw new Error("Failed to fetch quotes");
+
+    const data = await response.json();
+
+    // Just grabbing the first 5 mock posts as sample quotes
+    const apiQuotes = data.slice(0, 5).map(post => ({
+      text: post.title,
+      category: "Mock API"
+    }));
+
+    quotes.push(...apiQuotes);
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+    alert("Mock API quotes loaded!");
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Unable to load quotes from mock API.");
+  }
+
 }
