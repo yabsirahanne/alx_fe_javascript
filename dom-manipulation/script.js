@@ -236,4 +236,19 @@ function populateCategories() {
     filter.appendChild(option);
   });
 }
+function filterQuote(searchTerm) {
+  const term = searchTerm.toLowerCase();
+  const filtered = quotes.filter(q =>
+    q.text.toLowerCase().includes(term) ||
+    q.category.toLowerCase().includes(term)
+  );
+
+  const quoteDisplay = document.getElementById("quoteDisplay");
+  if (filtered.length > 0) {
+    const randomQuote = filtered[Math.floor(Math.random() * filtered.length)];
+    quoteDisplay.innerHTML = `<p>"${randomQuote.text}"</p><em>— ${randomQuote.category}</em>`;
+  } else {
+    quoteDisplay.innerHTML = `<p>No quotes matched your search.</p>`;
+  }
+}
 }
